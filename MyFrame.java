@@ -139,4 +139,44 @@ public class MyFrame extends JFrame {
         }
         return Integer.toString(total);
     }
+	public void addOneRow (int id,String t, String d, String ds, double p, int q) {
+		row[0] = id;
+		row[1] = t;
+		row[2] = ds;
+		row[3] = p ;
+		row [4] = q;
+		row[5] = d;
+		model.addRow(row);
+	}
+
+	private void initCounter(int c) throws SQLException {
+		c=0;
+		Connection conn = DriverManager.getConnection(URL , "SA" , ""); //connect to db
+		Statement stmt = conn.createStatement(); //discuuss with db
+
+		ResultSet rs = stmt.executeQuery("SELECT E_ID FROM EXPENSE;"); //query give it to stmt
+		while (rs.next()) {
+			c++;
+		}
+	}
+
+	public boolean addExpense(int id,String t, String d, String ds, double p, int q) throws Exception {
+		Connection conn = DriverManager.getConnection(URL , "SA" , ""); //connect to db
+		counter++;
+		Statement stmt = conn.createStatement(); //discuuss with db
+
+		ResultSet rs = stmt.executeQuery("SELECT E_ID FROM EXPENSE;"); //query give it to stmt
+
+		while (rs.next()) {
+			if (rs.getInt("E_ID") == id) {
+				setVisible(false);
+				JOptionPane.showMessageDialog(new MyFrame(), "INTEGRITY CONSTRAINT VIOLATION");
+				return false;
+			}}
+
+		rs = stmt.executeQuery("INSERT INTO EXPENSE VALUES (" + id + ",'" + t + "','" + ds + "'," + p + "," + q + ",to_date ('" + d +"','dd-mm-yyyy'));"); //query give it to stmt
+		rs.next();
+		lblNewLabel_4.setText(getTotal() + " $");
+		return true;
+	}
 }
