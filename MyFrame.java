@@ -129,4 +129,14 @@ public class MyFrame extends JFrame {
 		 try {displayExpense();} catch (Exception e) {};
 		 this.setVisible(true);
 	}
+	public String getTotal () throws Exception{
+        Connection conn = DriverManager.getConnection(URL , "SA" , ""); //connect to db
+        Statement stmt = conn.createStatement(); //discuuss with db
+        int total=0;
+        ResultSet rs = stmt.executeQuery("SELECT E_PRICE , E_QTE FROM EXPENSE;"); //query give it to stmt
+        while (rs.next()) {
+            total += rs.getInt("E_QTE") * rs.getDouble("E_PRICE");
+        }
+        return Integer.toString(total);
+    }
 }
