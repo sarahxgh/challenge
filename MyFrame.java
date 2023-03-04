@@ -179,4 +179,22 @@ public class MyFrame extends JFrame {
 		lblNewLabel_4.setText(getTotal() + " $");
 		return true;
 	}
+ public void removeExpense(int id) throws Exception {
+            Connection conn = DriverManager.getConnection(URL , "SA" , ""); //connect to db
+            counter--;
+            Statement stmt = conn.createStatement(); //discuuss with db
+            
+            ResultSet rs = stmt.executeQuery("DELETE FROM EXPENSE WHERE E_ID = " + id); 
+            rs.next();
+            lblNewLabel_4.setText(getTotal() + " $");
+                    
+        }
+     
+     public boolean isEmpty(JTextField nameField) {
+            if(nameField.getText().isEmpty()) {
+                return true;
+            }
+            return false;
+        }
+	
 }
