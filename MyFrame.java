@@ -179,4 +179,35 @@ public class MyFrame extends JFrame {
 		lblNewLabel_4.setText(getTotal() + " $");
 		return true;
 	}
+	/**
+      * @author oumaima
+      * This function would add rows to the table and display all the expenses.
+      * @throws SQLException
+      */
+    public void displayExpense () throws SQLException{
+        Connection conn = DriverManager.getConnection(URL , "SA" , ""); //connect to db
+        
+        Statement stmt = conn.createStatement(); //discuuss with db
+        ResultSet rs = stmt.executeQuery("SELECT * FROM EXPENSE;"); //query give it to stmt
+        
+        while (rs.next()) {
+            int id = rs.getInt("E_ID");
+            String t = rs.getString("E_TITLE");
+            Date d = rs.getDate("E_DATE");
+            
+            String ds = rs.getString("E_DESC");
+            float p = rs.getFloat("E_PRICE");
+            int q = rs.getInt("E_QTE");
+            
+            row[0] = id;
+            row[1] = t;
+            row[2] = ds;
+            row[3] = p ;
+            row [4] = q;
+            row[5] = d;
+            model.addRow(row);
+            
+        }
+    }
+}
 }
