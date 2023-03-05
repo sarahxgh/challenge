@@ -148,7 +148,110 @@ public class MyFrame extends JFrame {
 		row[5] = d;
 		model.addRow(row);
 	}
+	void newFrame () {
+		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			setBounds(761, 379, 450, 300);
+			this.setResizable(false);
+			JPanel contentPane = new JPanel();
+			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
+			setContentPane(contentPane);
+			contentPane.setLayout(null);
+			
+			
+			
+			JTextField id = new JTextField();
+			
+			id.setBounds(100, 60, 86, 20);
+			contentPane.add(id);
+			id.setColumns(10);
+			
+			JLabel lblNewLabel = new JLabel("ADD NEW EXPENSE");
+			lblNewLabel.setBounds(100, 11, 225, 24);
+			lblNewLabel.setFont(new Font("Futura", Font.BOLD, 23));
+			lblNewLabel.setForeground(new Color(0, 255, 0));
+			contentPane.add(lblNewLabel);
+			
+			JLabel lblNewLabel_1 = new JLabel("E_ID");
+			lblNewLabel_1.setBounds(44, 63, 46, 14);
+			contentPane.add(lblNewLabel_1);
+			
+			JLabel lblNewLabel_2 = new JLabel("E_TITLE");
+			lblNewLabel_2.setBounds(44, 111, 46, 14);
+			contentPane.add(lblNewLabel_2);
+			
+			JTextField t = new JTextField();
+			t.setColumns(10);
+			t.setBounds(100, 108, 86, 20);
+			contentPane.add(t);
+			
+			JLabel lblNewLabel_2_1 = new JLabel("E_DESC");
+			lblNewLabel_2_1.setBounds(44, 164, 46, 14);
+			contentPane.add(lblNewLabel_2_1);
+			
+			JTextField desc = new JTextField();
+			desc.setColumns(10);
+			desc.setBounds(100, 161, 86, 20);
+			contentPane.add(desc);
+			
+			JLabel lblNewLabel_1_1 = new JLabel("E_PRICE");
+			lblNewLabel_1_1.setBounds(234, 63, 61, 14);
+			contentPane.add(lblNewLabel_1_1);
+			
+			JTextField p = new JTextField();
+			p.setColumns(10);
+			p.setBounds(305, 60, 86, 20);
+			contentPane.add(p);
+			
+			JLabel lblNewLabel_1_1_1 = new JLabel("E_DATE");
+			lblNewLabel_1_1_1.setBounds(234, 111, 46, 14);
+			contentPane.add(lblNewLabel_1_1_1);
+			
+			JTextField d = new JTextField();
+			d.setColumns(10);
+			d.setBounds(305, 108, 86, 20);
+			contentPane.add(d);
+			
+			JTextField q = new JTextField();
+			q.setColumns(10);
+			q.setBounds(305, 161, 86, 20);
+			contentPane.add(q);
+			
+			JLabel lblNewLabel_1_1_1_1 = new JLabel("E_QTE");
+			lblNewLabel_1_1_1_1.setBounds(234, 164, 46, 14);
+			contentPane.add(lblNewLabel_1_1_1_1);
+			
+			JButton btnNewButton = new JButton("OK!");
+			btnNewButton.addActionListener(new ActionListener()  {
+				public void actionPerformed(ActionEvent e)  {
+					boolean success=false;
+					
+					if (isEmpty(id) || isEmpty (t) || isEmpty(p)) {
+						JOptionPane.showMessageDialog(null, "Empty fields");
+						setVisible(false);
+						new MyFrame();
+					}
+					try {
+						LocalDate currentDate = LocalDate.now();
+						if (isEmpty(desc)) desc.setText("-");
+						if (isEmpty(d)) d.setText(currentDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+						if (isEmpty(q)) q.setText("1");
+						
+						success = addExpense (Integer.parseInt(id.getText()),t.getText(),d.getText(),desc.getText(),Double.parseDouble(p.getText()),Integer.parseInt(q.getText()));
+					if (success) {
+						setVisible(false);
+						addOneRow(Integer.parseInt(id.getText()),t.getText(),d.getText(),desc.getText(),Double.parseDouble(p.getText()),Integer.parseInt(q.getText()));
+						new MyFrame();
+						return;
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Something went Wrong with the insertion");
+						return;
+					}
+					}
+				}
+			}
+	}
 	private void initCounter(int c) throws SQLException {
 		c=0;
 		Connection conn = DriverManager.getConnection(URL , "SA" , ""); //connect to db
