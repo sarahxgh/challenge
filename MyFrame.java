@@ -335,7 +335,7 @@ public class MyFrame extends JFrame {
 	 }
 	
 	 /**
-	  * @author A.Sarra
+	  * @author oumaima
 	  * This function would add rows to the table and display all the expenses.
 	  * @throws SQLException
 	  */
