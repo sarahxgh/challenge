@@ -1,0 +1,64 @@
+ <details>
+                <summary>Add Balance</summary>
+                <label for="balance">Select user</label>
+                <select id="balance">
+                    <?php
+                    
+                    $query="SELECT subusers FROM users"; 
+                    if(mysqli_prepare($conn,$query))
+                     {
+                      $result=mysqli_query($conn,$query); 
+                      while($row=mysqli_fetch_row($result))
+                      {
+                       ?>
+                       <option><?php echo $row;?></option>
+                       <?php
+                      }
+                    }
+                ?>
+                </select>
+              </details>
+               <details>
+                <summary>Delete Balance</summary>
+                <label for="balance">Select user</label>
+                <select id="balance" action="delete-transaction.php" method="post">
+                    <?php
+                    
+                    $query="SELECT subusers FROM users"; 
+                    if(mysqli_prepare($conn,$query))
+                     {
+                      $result=mysqli_query($conn,$query); 
+                      while($row=mysqli_fetch_row($result))
+                      {
+                       ?>
+                       <option><?php echo $row;?></option>
+                       <?php
+                      }
+                    }
+                ?>
+                </select>
+                <input type="submit" value="confirm">
+              </details>
+
+               <details>
+                <summary>Edit Balance</summary>
+                <label for="balance">Select user</label>
+                <select id="balance">
+                    <?php
+                    
+                    $query="SELECT subusers FROM users"; 
+                    if(mysqli_prepare($conn,$query))
+                     {
+                      $result=mysqli_query($conn,$query); 
+                      while($row=mysqli_fetch_row($result))
+                      {
+                       ?>
+                       <option><?php echo $row;?></option>
+                       <?php
+                      }
+                    }
+                ?>
+                </select><br>
+                <label for="money">Amount: 
+
+              </details>
