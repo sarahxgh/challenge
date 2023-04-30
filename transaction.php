@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn=mysqli_connect("localhost","root","","challenge_db"); 
+$conn=mysqli_connect("localhost","root","","challenge3"); 
 $one=$_POST["title"]; 
 $two=$_POST["amount"]; 
 $three=$_POST['key']; 

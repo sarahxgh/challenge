@@ -15,8 +15,7 @@
       $password=$_POST["password"];
       $repeatedpassword=$_POST["repeated-password"]; 
       //$passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
-           $errors = array();
+      $errors = array();
            
            if (empty($name) OR empty($email) OR empty($password) OR empty($repeatedpassword)) {
             array_push($errors,"All fields are required");
@@ -43,18 +42,27 @@
             }
            }else{
             
-            $signup = "INSERT INTO users (name, email, password) VALUES ( ?, ?, ? )";
+            $sql = "INSERT INTO users (name, email, password) VALUES ( ?, ?, ? )";
             $stmt = mysqli_stmt_init($conn);
-            $prepareStmt = mysqli_stmt_prepare($stmt,$signup);
+            $prepareStmt = mysqli_stmt_prepare($stmt,$sql);
             if ($prepareStmt) {
                 mysqli_stmt_bind_param($stmt,"sss",$name, $email, $password);
                 mysqli_stmt_execute($stmt);
+                $login="SELECT * FROM users WHERE email = '$email'";
+                $result = mysqli_query($conn, $login);
+                $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                session_start();
+                $_SESSION["isuser"] = "yes";
+                $_SESSION["user_id"] = $user["id"]; 
                 echo "<div class='alert alert-success'>You are registered successfully.</div>";
-                header("Location:index.php");
+                header("Location: index1.php");
             }else{
                 die("Something went wrong");
             }
            }
+          
+
+        
     }
     ?>
     <div class="wrapper">

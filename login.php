@@ -16,18 +16,33 @@
       $login="SELECT * FROM users WHERE email = '$email'";
       $result = mysqli_query($conn, $login);
       $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
+      // if it is a user
       if ($user) {
-        if (password_verify($password, $user["password"])) {
+        if ($password===$user["password"]) {
             session_start();
-            $_SESSION["user"] = "yes";
-            header("Location: index.php");
+            $_SESSION["isuser"] = "yes";
+            $_SESSION["user_id"] = $user["id"];                                                                                                                         
+            header("Location: index1.php");
             die();
         }else{
             echo "<div class='alert alert-danger'>Password does not match</div>";
         }
-    }else{
-        echo "<div class='alert alert-danger'>Email does not match</div>";
+       } else{ // if it is a sub-user
+        $login2="SELECT * FROM subusers WHERE email = '$email'";
+          $result2 = mysqli_query($conn, $login2);
+          $user2 = mysqli_fetch_array($result2, MYSQLI_ASSOC);
+          if ($password===$user2["password"]) {
+            session_start();
+            $_SESSION["isuser"] = "no";
+            $_SESSION["user_id"] = $user2["user_id"];   
+            $_SESSION["subuser_id"] = $user2["id"];                                                                                                                     
+            header("Location: index1.php");
+            die();
+          }
+        }
     }
+    else{
+      echo "<div class='alert alert-danger'>Email does not match</div>";
     }
     ?>
 
