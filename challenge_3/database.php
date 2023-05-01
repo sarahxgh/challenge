@@ -3,10 +3,10 @@
 $hostName = "localhost";
 $dbUser = "root";
 $dbPassword = "";
-$dbName = "challenge3";
+$dbName = "challenge_db";
 $conn = mysqli_connect($hostName, $dbUser, $dbPassword, $dbName);
 if (!$conn) {
-    die("Something went wrong;");
+    die("Something went wrong.");
 }
 
 ?>
